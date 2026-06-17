@@ -15,7 +15,7 @@ export async function getAllProducts(): Promise<Product[]>{
     return fetchJson<Product[]>("https://fakestoreapi.com/products");
 }
 
-export async function getCategory(): Promise<string[]> {
+export async function getAllCategories(): Promise<string[]> {
     return fetchJson<string[]>('https://fakestoreapi.com/products/categories');
 }
 
