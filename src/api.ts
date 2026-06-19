@@ -19,4 +19,8 @@ export async function getAllCategories(): Promise<string[]> {
     return fetchJson<string[]>('https://fakestoreapi.com/products/categories');
 }
 
+export async function getProductById(id: number): Promise<Product> {
+    return fetchJson<Product>(`https://fakestoreapi.com/products/${id}`);
+}
+
 

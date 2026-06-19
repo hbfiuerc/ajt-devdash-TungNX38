@@ -25,4 +25,9 @@ export interface ErrorState {
     message: string; 
 }
 
-export type AppState = IdleState | LoadingState | SuccessState | ErrorState;
+export interface DetailState {
+    status: "detail";
+    product: Product; 
+}
+
+export type AppState = IdleState | LoadingState | SuccessState | ErrorState | DetailState;
