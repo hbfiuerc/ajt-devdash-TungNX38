@@ -1,3 +1,4 @@
+import './App.css';
 import type { AppState, Product } from "./types";
 import { getAllProducts, getAllCategories, getProductById } from "./api"; // Import thêm getProductById
 
@@ -36,26 +37,26 @@ async function loadProductDetail(id: number) {
 
 function renderProductList(productsToRender: Product[]) {
     const listHTML = productsToRender.map(p => `
-        <div style="border:1px solid #ccc; margin:10px ; padding:10px;">
-            <span style="font-size: 12px; color: gray;">${p.category.toUpperCase()}</span>
-            <h3>${p.title}</h3>
-            <p>Giá: $${p.price}</p>   
-            <button class="detail-btn" data-id="${p.id}" style="cursor: pointer; padding: 5px;">Xem chi tiết</button>
+        <div class="product-card">
+            <img class="product-img" src="${p.image}" alt="${p.title}" loading="lazy" />
+            <span class="product-category">${p.category}</span>
+            <h3 class="product-title">${p.title}</h3>
+            <p class="product-price">$${p.price}</p>   
+            <button class="btn detail-btn" data-id="${p.id}">Xem chi tiết</button>
         </div> 
     `).join("");
 
     const listContainer = document.getElementById("productList");
     if (listContainer) {
+        listContainer.className = "product-grid"; 
         listContainer.innerHTML = listHTML;
         
-    
         const buttons = listContainer.querySelectorAll('.detail-btn');
         buttons.forEach(btn => {
             btn.addEventListener('click', (event) => {
-                // Ép kiểu an toàn và lấy ra ID của sản phẩm
                 const target = event.target as HTMLButtonElement;
                 const productId = Number(target.getAttribute('data-id'));
-                loadProductDetail(productId); 
+                loadProductDetail(productId);
             });
         });
     }
@@ -69,9 +70,9 @@ function renderBaseUI() {
     const searchUIContainer = document.getElementById("searchUI");
     if (searchUIContainer) {
         searchUIContainer.innerHTML = `
-            <div style="margin-bottom: 20px;">
-                <input type="text" id="searchInput" placeholder="Gõ tên sản phẩm..." style="padding: 5px; width: 300px;" />
-                <select id="categorySelect" style="padding: 5px; margin-left: 10px;">
+            <div class="search-controls">
+                <input type="text" id="searchInput" class="search-input" placeholder="🔍 Gõ tên sản phẩm (VD: Laptop)..." />
+                <select id="categorySelect" class="category-select">
                     <option value="all">Tất cả danh mục</option>
                     ${categoryOptions}
                 </select>
